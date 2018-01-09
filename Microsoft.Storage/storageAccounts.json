@@ -1,13 +1,20 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.1",
+  "contentVersion": "1.0.0.2",
   "parameters": {
     "name": {
       "type": "string",
-      "defaultValue": "[[concat('storage', uniqueString(resourceGroup().id))]]",
       "maxLength": 63,
       "metadata": {
         "description": "Name for the storage account, must be lower case and globally unique"
+      }
+    },
+    "sku": {
+      "type": "string",
+      "allowedValues": ["Standard_LRS", "Standard_GRS", "Standard_ZRS"],
+      "defaultValue": "Standard_LRS",
+      "metadata": {
+        "description": "SKU for the storage account"
       }
     },
     "location": {
@@ -57,7 +64,7 @@
     }
   },
   "variables": {
-	  "storageAccountName": "[tolower(parameters('name'))]"
+    "storageAccountName": "[tolower(parameters('name'))]"
   },
   "resources": [
     {
@@ -65,7 +72,7 @@
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2017-10-01",
       "sku": {
-        "name": "[parameters('name')]"
+        "name": "[parameters('sku')]"
       },
       "kind": "StorageV2",
       "location": "[parameters('location')]",
