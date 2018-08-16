@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.2.0",
+  "contentVersion": "1.1.0.0",
   "parameters": {
     "name": {
       "type": "string",
@@ -56,10 +56,10 @@
         "description": "Geography for the tags"
       }
     },
-    "region": {
+    "project": {
       "type": "string",
       "metadata": {
-        "description": "Region for the tags"
+        "description": "Project for the tags"
       }
     }
   },
@@ -77,11 +77,9 @@
       "kind": "StorageV2",
       "location": "[parameters('location')]",
       "tags": {
-        "displayName": "[variables('storageAccountName')]",
         "environment": "[parameters('environment')]",
         "geography": "[parameters('geography')]",
-        "region": "[parameters('region')]",
-        "resourceGroup": "[resourceGroup().name]"
+        "project": "[parameters('project')]"
       },
       "properties": {
         "encryption": {
